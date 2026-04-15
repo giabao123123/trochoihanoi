@@ -6,7 +6,10 @@
       name="viewport"
       content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
     />
-    <link rel="stylesheet" href="https://giabao123123.github.io/trochoi/trochoi.css" />
+    <link
+      rel="stylesheet"
+      href="https://giabao123123.github.io/trochoi/trochoi.css"
+    />
     <link
       rel="apple-touch-icon"
       sizes="57x57"
@@ -782,7 +785,6 @@
         stopAllMusic();
       }
       let quiz = [
-        // ===== 1. LỄ HỘI – TÍN NGƯỠNG (8 CÂU) =====
         {
           question: "Lễ hội Gióng của Hà Nội được UNESCO công nhận là gì?",
           answers: [
@@ -844,8 +846,6 @@
           answers: ["Chùa Một Cột", "Chùa Keo", "Chùa Tây Phương", "Chùa Dâu"],
           correct: 0,
         },
-
-        // ===== 2. VĂN HÓA – CỘNG ĐỒNG (5 CÂU) =====
         {
           question: "Hà Nội từng mang tên nào sau đây?",
           answers: ["Gia Định", "Thăng Long", "Phú Xuân", "Trấn Biên"],
@@ -878,8 +878,6 @@
           answers: ["12 phố", "24 phố", "36 phố", "50 phố"],
           correct: 2,
         },
-
-        // ===== 3. ĐỊA LÝ – TỰ NHIÊN (5 CÂU) =====
         {
           question: "Hà Nội nằm trong vùng đồng bằng nào của Việt Nam?",
           answers: [
@@ -916,8 +914,6 @@
           ],
           correct: 1,
         },
-
-        // ===== 4. DU LỊCH – ẨM THỰC (6 CÂU) =====
         {
           question: "Món ăn nào được xem là biểu tượng ẩm thực Hà Nội?",
           answers: ["Bún bò Huế", "Phở", "Hủ tiếu", "Cao lầu"],
@@ -964,8 +960,6 @@
           ],
           correct: 1,
         },
-
-        // ===== 5. KINH TẾ – PHÁT TRIỂN (6 CÂU) =====
         {
           question: "Hà Nội là trung tâm kinh tế thuộc vùng nào?",
           answers: [
@@ -1019,17 +1013,16 @@
           correct: 1,
         },
       ];
-
       let toastTimer = null;
       quiz = quiz.sort(() => Math.random() - 0.5);
       let index = 0;
       let score = 0;
       let correctCount = 0;
-      let totalTime = 10 * 60; // 10 phút
+      let totalTime = 10 * 60;
       let timer;
-      const correctSound = new Audio("./amthanh/dung.mp3"); // đúng → "Yee!"
-      const wrongSound = new Audio("./amthanh/wrong.mp3"); // sai → "Ô ồ!"
-      const finishSound = new Audio("./amthanh/end.mp3"); // 🔊 âm thanh kết thúc
+      const correctSound = new Audio("./amthanh/dung.mp3");
+      const wrongSound = new Audio("./amthanh/wrong.mp3");
+      const finishSound = new Audio("./amthanh/end.mp3");
       function showToast(message, type) {
         const toast = document.getElementById("toast");
         if (toastTimer) {
