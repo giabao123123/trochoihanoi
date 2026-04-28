@@ -130,7 +130,7 @@
             🏆 Kỷ lục: <span id="best-score-value">0</span> điểm
           </div>
           <div class="header-title w3-center" style="margin-top: 2%">
-            🎮 QUIZ HÀ NỘI
+            🎮 QUIZ THÀNH PHỐ HÀ NỘI
           </div>
           <div class="header-sub">Kiến thức – Văn hóa – Lịch sử quê hương</div>
           <div class="button-group">
@@ -139,7 +139,7 @@
               class="neon-btn neon-box1 buu"
               onclick="goWeb()"
             >
-              🏠 VỀ HÀ NỘI
+              🏠 VỀ THÀNH PHỐ HÀ NỘI
             </button>
             <script>
               function goWeb() {
@@ -627,7 +627,7 @@
         playFinishSound();
         stopAllMusic();
         document.querySelectorAll('[id^="sound-btn"]').forEach((btn) => {
-          btn.style.display = "none";
+          btn.classList.add("sound-btn-hidden");
         });
         document.getElementById("timer").style.display = "none";
         document.getElementById("progress").style.display = "none";
@@ -765,7 +765,7 @@
         document.getElementById("hud-wrong").innerText = "0";
         document.querySelector(".mobile-hud").style.display = "flex";
         document.querySelectorAll('[id^="sound-btn"]').forEach((btn) => {
-          btn.style.display = "inline-block";
+          btn.classList.remove("sound-btn-hidden");
         });
         const timerEl = document.getElementById("timer");
         timerEl.classList.remove("shake", "danger");
@@ -1289,7 +1289,7 @@
           emoji = "💪";
         }
         const text = `
-🎮 QUIZ HÀ NỘI 🎮
+🎮 QUIZ THÀNH PHỐ HÀ NỘI 🎮
 🏆 Điểm: ${score}
 ✅ Số câu đúng: ${correctCount}/${total}
 ❌ Số câu sai: ${wrongCount}
@@ -1320,49 +1320,6 @@
         document.execCommand("copy");
         document.body.removeChild(textarea);
         showToast("📋 Đã copy kết quả!", "correct");
-      }
-      function downloadCertImage() {
-        const total = quiz.length;
-        const correctPercent = Math.round((correctCount / total) * 100);
-        const timeUsed = 10 * 60 - totalTime;
-        const minutes = Math.floor(timeUsed / 60);
-        const seconds = timeUsed % 60;
-        const timeStr = `${minutes} phút ${seconds} giây`;
-        let rank, emoji;
-        if (score >= total * 10 * 0.9) {
-          rank = "Xuất sắc";
-          emoji = "🏆🔥";
-        } else if (score >= total * 10 * 0.7) {
-          rank = "Rất tốt";
-          emoji = "🌟";
-        } else if (score >= total * 10 * 0.5) {
-          rank = "Khá";
-          emoji = "👍";
-        } else {
-          rank = "Cần cố gắng";
-          emoji = "💪";
-        }
-        document.getElementById("cert-score").innerText = score;
-        document.getElementById("cert-correct").innerText =
-          `${correctCount}/${total}`;
-        document.getElementById("cert-wrong").innerText = wrongCount;
-        document.getElementById("cert-percent").innerText = correctPercent;
-        document.getElementById("cert-time").innerText = timeStr;
-        document.getElementById("cert-rank").innerText = `${emoji} ${rank}`;
-        document.getElementById("cert-date").innerText =
-          new Date().toLocaleDateString("vi-VN");
-        showToast("🎨 Đang tạo chứng chỉ hình ảnh...", "correct");
-        const certElement = document.getElementById("certificate-template");
-        html2canvas(certElement, {
-          scale: 2,
-          useCORS: true,
-        }).then((canvas) => {
-          const link = document.createElement("a");
-          link.download = `Chung-chi-Ha-Noi-${score}-diem.png`;
-          link.href = canvas.toDataURL("image/png");
-          link.click();
-          showToast("✅ Đã tải chứng chỉ về máy!", "correct");
-        });
       }
     </script>
     <div id="skip-modal" class="modal-overlay" style="display: none">
@@ -1456,55 +1413,6 @@
         <button class="neon-btn neon-box1" onclick="closeDetail()">
           ❌ Đóng
         </button>
-      </div>
-    </div>
-    <div
-      id="certificate-template"
-      style="
-        position: absolute;
-        left: -9999px;
-        width: 600px;
-        padding: 40px;
-        background: #fff8e1;
-        border: 15px double #8d6e63;
-        text-align: center;
-        font-family: &quot;Arial&quot;, sans-serif;
-        color: #3e2723;
-      "
-    >
-      <div
-        style="
-          border: 2px solid #8d6e63;
-          padding: 20px;
-          background: rgba(255, 255, 255, 0.5);
-        "
-      >
-        <h1 style="margin: 0; color: #d84315; font-size: 32px">CHỨNG NHẬN</h1>
-        <h2 style="margin: 10px 0; font-size: 22px">ĐẠI SỨ VĂN HÓA HÀ NỘI</h2>
-        <hr style="border: 1px solid #8d6e63; margin: 20px 0" />
-        <div
-          style="
-            text-align: left;
-            display: inline-block;
-            font-size: 18px;
-            line-height: 1.6;
-          "
-        >
-          <p>🏆 <b>Điểm số:</b> <span id="cert-score">0</span></p>
-          <p>✅ <b>Số câu đúng:</b> <span id="cert-correct">0</span></p>
-          <p>❌ <b>Số câu sai:</b> <span id="cert-wrong">0</span></p>
-          <p>📊 <b>Tỷ lệ đúng:</b> <span id="cert-percent">0</span>%</p>
-          <p>⏱ <b>Thời gian:</b> <span id="cert-time">0</span></p>
-          <p>🎖 <b>Xếp hạng:</b> <span id="cert-rank">...</span></p>
-        </div>
-        <div style="margin-top: 30px">
-          <p style="font-size: 14px; font-style: italic">
-            Hà Nội, ngày <span id="cert-date">...</span>
-          </p>
-          <h3 style="color: #d84315; margin-top: 10px">
-            YÊU HÀ NỘI TRONG TỪNG KIẾN THỨC
-          </h3>
-        </div>
       </div>
     </div>
   </body>
